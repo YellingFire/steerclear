@@ -13,7 +13,8 @@ app.use(cookieParser());
 
 if (process.env.NODE_ENV === "production") {
   console.log("Process.env.Node hit");  
-  app.use(express.static(path.join(__dirname, 'client')));
+  console.log("path.join: " + path.join(__dirname, '/client'));
+  app.use(express.static(path.join(__dirname, '/client/build')));
 }
 
 
