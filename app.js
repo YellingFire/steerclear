@@ -19,7 +19,8 @@ if (process.env.NODE_ENV === "production") {
 
 app.get('*', (req, res) => {
   console.log("app.js * is hit");
-  res.sendFile(path.join(__dirname + 'client/build/index.html'));
+  console.log(path.join(__dirname + '/client/build/index.html'));
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 // catch 404 and forward to error handler
