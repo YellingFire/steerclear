@@ -1,49 +1,76 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const dbConnection = require('./database'); 
+const MongoStore = require('connect-mongo')(session);
+const passport = require('./passport');
+const mongoose = require('mongoose');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const axios = require('axios');
+const app = express();
+const routes = require("./routes");
+const cors = require('cors');
 
-var app = express();
+
+// Define middleware here
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use(cors());
+
 if (process.env.NODE_ENV === "production") {
-  console.log("Process.env.Node hit");  
-  console.log("path.join: " + path.join(__dirname, '/client'));
   app.use(express.static(path.join(__dirname, '/client/build')));
 }
 
 
-app.get('*', (req, res) => {
-  console.log("app.js * is hit");
-  console.log(path.join(__dirname + '/client/build/index.html'));
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
-});
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// Connect to the Mongo DB
+// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/steerclear");
 
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+  
   // render the error page
   res.status(err.status || 500);
 });
 
-var port = process.env.PORT || '3000';
+var port = process.env.PORT || 3001;
+
+// Routes
+app.use(routes);
+
+
+//Passport/Sessions/Routes
+// Sessions
+app.use(
+  session({
+    secret: 'fraggle-rock', //pick a random string to make the hash that is generated secure
+		store: new MongoStore({ mongooseConnection: dbConnection }),
+		resave: false, //required
+		saveUninitialized: false //required
+	})
+)
+
+// Passport
+app.use(passport.initialize())
+app.use(passport.session()) // calls the deserializeUser
+
+
+//END Passport/Sessions/Routes
+
 
 app.listen(port, () => {
-  console.log('Server started on port: ' + port);
-  console.log("process.env actual: " + process.env.NODE_ENV);
+  console.log(`🌎  ==> API Server now listening on PORT ${port}!`);
 });
 
 module.exports = app;

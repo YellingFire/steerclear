@@ -1,0 +1,17 @@
+/* .jumbotron {
+    outline: 1px solid red !important;
+    text-align: center;
+} */
+    
+
+
+.title-head {    
+    /* background-image: url("../../assets/images/SteerClearTitle2.png"); */
+    margin: auto;
+    margin-top: 5%;
+    text-align: center;
+    width: auto;
+    height: auto;
+    /* position: relative; */
+    
+}

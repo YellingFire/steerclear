@@ -1,0 +1,64 @@
+.form-container {
+    width: auto;
+    height: auto;
+}
+
+.address-form {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #000;
+    overflow: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+
+.contractor-info-form {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #000;
+    width: 100%;
+}  
+.street-address {
+    width: 60%;
+}
+
+.address-inputs {
+    padding: 0px;
+    margin: 5px;
+}
+
+.contractor-inputs {
+    padding: 5px;
+    margin: 5px;
+}
+
+textarea {
+    border:1px solid #999999;
+    width:100%;
+    margin:5px;
+    padding:3px;
+}
+
+.form-title {
+    text-align: center;
+}
+
+.display-container {
+    text-align: center;
+    margin: 20px;
+    padding: 30px;
+    border: 2px solid #000;
+    overflow: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+
+  .review {
+    width: 100%
+  }

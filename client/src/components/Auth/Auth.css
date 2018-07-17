@@ -1,0 +1,72 @@
+/* * {
+    outline: 1px solid red !important;
+} */
+
+.SignupForm {
+    width: 40%;
+    border: 2px solid #000;
+    padding: 20px;
+    margin: auto;
+}
+
+.display-container {
+    text-align: center;
+    margin: 20px;
+    padding: 30px;
+    border: 2px solid #000;
+    overflow: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+
+  .inside-container-form {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #000;
+    overflow: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+
+  .form-container {
+    width: auto;
+    height: auto;
+}
+
+.contractinfo-formor- {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #000;
+    width: 100%;
+}  
+.form-all {
+    width: 80%;
+    margin: auto;
+}
+
+.form-input {
+    padding: 0px;
+    margin: 10px;
+    width: 100%;
+}
+
+.form-fields {
+    text-align: center;
+    margin: auto;
+}
+
+.form-title {
+    padding: 20px 20px;
+    text-align: center;
+    margin: auto;
+}
+
+.auth-form {
+    width: 100%;
+}
