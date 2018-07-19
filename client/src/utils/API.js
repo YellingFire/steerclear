@@ -5,12 +5,14 @@ const APIHost = '/api'
 
 export default {
   // Gets all reviews
-  getAll: function(endpoint) {
-    return axios.get(`${APIHost}/${endpoint}`);
+  getAll: function(reviews) {
+    console.log("getAll, in client side API hit!");
+    return axios.get(`${APIHost}/reviews`, reviews);
   },
   // Gets the reviews with the given addressId
-  getOne: function(review) {
-    return axios.get(`${APIHost}/reviews`, review);
+  searchByAddress: function(address) {
+    console.log("getOne, in client side API hit!");
+    return axios.post(`${APIHost}/reviews/search`, address);
   },
   // Deletes the reviews with the given addressId
   deleteReview: function(endpoint) {

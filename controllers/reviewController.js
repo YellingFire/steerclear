@@ -8,11 +8,11 @@ module.exports = {
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err));
       },
-      findById: function(req, res) {
-        console.log("findById hit in controller: ", req.params.id)
+      findByAddress: function(req, res) {
+        console.log("findOne hit in controller: ", req.body)
         Review
-          .findById(req.params.id)
-          .then(dbModel => res.json(dbModel))
+          .find(req.body)
+          .then(reviewDocs => res.json(reviewDocs))
           .catch(err => res.status(422).json(err));
       },
       create: function(req, res) {

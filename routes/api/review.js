@@ -9,8 +9,12 @@ router
   .post(reviewController.create);
 
 router
+  .route('/search')
+  .post(reviewController.findByAddress);
+
+router
   .route('/:addressID')
-  .get(reviewController.findById)
+  // .get(reviewController.findById)
   .put(reviewController.update)
   .delete(reviewController.remove);
 

@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-// import { Redirect } from 'react-router-dom'
-import axios from 'axios'
+import React, { Component } from 'react';
+import axios from 'axios';
+import Row from "../Grid/Row";
+import Container from "../Grid/Container";
 
 class LoginForm extends Component {
     constructor() {
@@ -53,40 +54,40 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <div className="container">
+            <Container>
                 <h4 className="form-title">Login</h4>
                 <form className="SignupForm">
                     <div className="row form-all">
                         <div className="col-12">
-                            <div className="row">
+                            <Row>
                                 <div className="col-12 form-fields">                           
                                     <label htmlFor="username"><h3>Username:</h3></label>         
                                 </div>
-                            </div>
-                            <div className="row">
+                            </Row>
+                            <Row>
                                 <div className="col-12 form-fields">
                                     <input className="form-input" type="text" id="username" name="username" placeholder="Username" value={this.state.username} onChange={this.handleChange}/>          
                                 </div>
-                            </div>
-                            <div className="row">    
+                            </Row>
+                            <Row>    
                                 <div className="col-12 form-fields">
                                     <label htmlFor="password"><h3>Password:</h3></label>
                                 </div>                
-                            </div>
-                            <div className="row">    
+                            </Row>
+                            <Row>    
                                 <div className="col-12 form-fields">
                                     <input className="form-input" placeholder="Password" type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
                                 </div>                
-                            </div>			
-                            <div className="row">
+                            </Row>			
+                            <Row>
                                 <div className="col-12 form-fields">
-                                    <button className="btn btn-outline-dark" onClick={this.handleSubmit} type="submit">Register</button>
+                                    <button className="btn btn-outline-dark" onClick={this.handleSubmit} type="submit">Login</button>
                                 </div>
-                            </div>                    
+                            </Row>                    
                         </div>            
                     </div>                 					
                 </form>            
-            </div>
+            </Container>
         )
     }
 }

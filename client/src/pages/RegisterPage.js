@@ -1,24 +1,26 @@
 import React from "react";
 import Register from "../components/Auth/Register";
 import Jumbotron from "../components/Jumbotron/Jumbotron";
+import Row from "../components/Grid/Row";
+import Container from "../components/Grid/Container";
 
 
 
 class RegisterPage extends React.Component {
     render() {
         return (
-            <div className="container">
-                <div className="row">
+            <Container>
+                <Row>
                     <div className="col-12 title-content">
                         <Jumbotron />
                     </div>
-                </div>
-                <div className="row">
+                </Row>
+                <Row>
                     <div className="col-12">
                         <Register /> 
                     </div>
-                </div>          
-            </div>                        
+                </Row>          
+            </Container>                        
         );
     }  
 
