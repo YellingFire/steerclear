@@ -6,10 +6,10 @@ const reviewSchema = new Schema({
   city: { type: String, required: true },
   state: { type: String, required: true },
   zip: { type: String, required: true },
-  review: String,
+  review: { type: String, required: true },
   date: { type: Date, default: Date.now },
   cityOfOperation: { type: String, required: true },
-  typeContractor: { type: String, required: false }
+  typeContractor: { type: String, required: true }
 });
 
 const Review = mongoose.model("Review", reviewSchema);

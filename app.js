@@ -35,19 +35,16 @@ if (process.env.NODE_ENV === "production") {
 // mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/steerclear");
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
   
-  // render the error page
-  res.status(err.status || 500);
-});
+//   // render the error page
+//   res.status(err.status || 500);
+// });
 
 var port = process.env.PORT || 3001;
-
-// Routes
-app.use(routes);
 
 
 //Passport/Sessions/Routes
@@ -64,6 +61,9 @@ app.use(
 // Passport
 app.use(passport.initialize())
 app.use(passport.session()) // calls the deserializeUser
+
+// Routes
+app.use(routes);
 
 
 //END Passport/Sessions/Routes

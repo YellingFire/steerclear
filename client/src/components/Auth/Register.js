@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Auth.css';
 import determineEnv from '../../environment/determineEnv';
 import determineApiHost from '../../environment/determineAPIHost';
+import Footer from '../Nav/Footer'
 
 
 class Register extends Component {
@@ -11,7 +12,8 @@ class Register extends Component {
 		this.state = {
 			username: '',
 			password: '',
-			confirmPassword: '',
+			typeUser: '',
+			confirmPassword: ''
 
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -20,7 +22,7 @@ class Register extends Component {
 	handleChange(event) {
 		this.setState({
 			[event.target.name]: event.target.value
-		})
+		}, console.log(this.state));
 	}
 	handleSubmit(event) {
 		console.log('sign-up handleSubmit, username: ')
@@ -28,20 +30,21 @@ class Register extends Component {
 		event.preventDefault()
 
 		
-		console.log(
-		`${determineApiHost(determineEnv())}/api/user`
-		);
+		// console.log(
+		// `${determineApiHost(determineEnv())}/api/user`
+		// );
 		//request to server to add a new username/password
 		axios.post(`${determineApiHost(determineEnv())}/api/user`, {
 			username: this.state.username,
-			password: this.state.password
+			password: this.state.password,
+			typeUser: this.state.typeUser
 		})
 			.then(response => {
 				console.log(response)
 				if (!response.data.errmsg) {
 					console.log('successful signup')
 					this.setState({ //redirect to login page
-						redirectTo: '/login'
+						redirectTo: '/review'
 					})
 				} else {
 					console.log('username already taken')
@@ -80,7 +83,44 @@ class Register extends Component {
                                 <div className="col-12 form-fields">
                                     <input className="form-input" placeholder="Password" type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
                                 </div>                
-                            </div>			
+                            </div>
+							<div className="row">
+								<div className="col-12 form-fields">
+								<label htmlFor="typeUser"><h3>Choose One:</h3></label>
+									<div className="row">    
+										<div className="col-12 form-fields">
+											<label>
+												<input 
+													className="checkbox"
+													name="typeUser" 
+													type="radio" 
+													value="Service Provider"
+													checked={this.state.typeUser === "Service Provider"}
+													onChange={this.handleChange}>
+												</input>
+												Service Provider
+											</label>
+											<label>											
+												<input
+													className="checkbox" 
+													name="typeUser" 
+													type="radio" 
+													value="Homeowner"
+													checked={this.state.typeUser === "Homeowner"} 
+													onChange={this.handleChange}>
+												</input>
+												Homeowner
+											</label>
+										</div>                
+                            		</div>
+									<div className="row">
+										<div className="col-12 form-fields">
+																				
+										</div>
+									</div>
+								</div>
+							</div>
+										
                             <div className="row">
                                 <div className="col-12 form-fields">
                                     <button className="btn btn-outline-dark" onClick={this.handleSubmit} type="submit">Register</button>
@@ -88,7 +128,8 @@ class Register extends Component {
                             </div>                    
                         </div>            
                     </div>                 					
-                </form>            
+                </form>
+				<Footer/>            
             </div>
         )
     }

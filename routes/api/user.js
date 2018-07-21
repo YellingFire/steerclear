@@ -1,13 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../../database/models/user')
-const passport = require('../../passport')
+const passport = require('../../passport');
 
 
 router.post('/', (req, res) => {
     console.log('user signup, router.post on user.js');
 
-    const { username, password } = req.body
+    const { username, password, typeUser } = req.body
     // ADD VALIDATION
     User.findOne({ username: username }, (err, user) => {
         if (err) {
@@ -21,7 +21,8 @@ router.post('/', (req, res) => {
         else {
             const newUser = new User({
                 username: username,
-                password: password
+                password: password,
+                typeUser: typeUser //errored after this was added
             })
             newUser.save((err, savedUser) => {
                 if (err) return res.json(err)
@@ -31,22 +32,39 @@ router.post('/', (req, res) => {
     })
 })
 
-router.post(
-    '/login',
-    function (req, res, next) {
-        console.log('routes/user.js, login, req.body: ');
-        console.log(req.body)
-        next()
-    },
-    passport.authenticate('local'),
-    (req, res) => {
-        console.log('logged in', req.user);
-        var userInfo = {
-            username: req.user.username
-        };
-        res.send(userInfo);
-    }
-)
+// router.post('/login',
+
+// passport.authenticate('local', { successRedirect: '/review',
+//                                  failureRedirect: '/login',
+//                                  failureFlash: true })
+                                
+// );
+
+router.post('/login', (req, res) => {
+    console.log('REQ.BODY: ', req.body);
+    // function (req, res, next) {
+    //     console.log('this is the req.user in routes/user.js: ', res.bo);
+    //     console.log('routes/user.js, login, req.body: ', req.body);        
+    //     next()
+    // },
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            console.log(err);
+            return res.status(403).json({ notLoggedIn: err })
+        }
+        if (!user) {
+            console.log(info);
+            return res.status(403).json({ notLoggedIn: info })
+        }
+        console.log('logged in', user);
+        // var userInfo = {
+        //     username: req.user.username
+        // };
+        req.session.save();
+        res.json(user);
+    })(req, res);
+})
+    
 
 router.get('/', (req, res, next) => {
     console.log('===== user!!======')

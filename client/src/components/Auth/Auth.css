@@ -70,3 +70,8 @@
 .auth-form {
     width: 100%;
 }
+
+.checkbox {
+    padding: 5px;
+    margin: 5px;
+}

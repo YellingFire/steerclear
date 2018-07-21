@@ -5,7 +5,7 @@ import "./pages.css";
 import LoginButton from '../components/buttons/LoginButton';
 import HomeownerButton from '../components/buttons/HomeownerButton';
 import Footer from "../components/Nav/Footer"
-import RegisterButton from "../components/buttons/RegisterButton";
+// import RegisterButton from "../components/buttons/RegisterButton";
 import Row from "../components/Grid/Row";
 import Container from "../components/Grid/Container";
 
@@ -36,9 +36,6 @@ class TitlePage extends Component {
                       <h3>Contractor Login or Sign Up</h3> 
                         <Link to="/login">                 
                           <LoginButton />
-                        </Link>
-                        <Link to="/register">
-                          <RegisterButton />
                         </Link>                 
                     </div>
                     <div className="col-4 center-component">

@@ -7,6 +7,7 @@ import WriteReview from '../components/forms/WriteReview';
 import Row from "../components/Grid/Row";
 import Container from "../components/Grid/Container";
 
+
 class CreateReviewPage extends Component {
   render() {
     return (

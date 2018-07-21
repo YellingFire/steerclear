@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Row from "../Grid/Row";
 import Container from "../Grid/Container";
+import { Link } from "react-router-dom";
+import RegisterButton from '../buttons/RegisterButton';
+import Footer from '../Nav/Footer';
+import API from '../../utils/API'
 
 class LoginForm extends Component {
     constructor() {
@@ -25,9 +29,9 @@ class LoginForm extends Component {
     handleSubmit(event) {
         event.preventDefault()
         console.log('handleSubmit')
+        console.log(this.state);
 
-        axios
-            .post('/user/login', {
+            API.login({
                 username: this.state.username,
                 password: this.state.password
             })
@@ -36,13 +40,13 @@ class LoginForm extends Component {
                 console.log(response)
                 if (response.status === 200) {
                     // update App.js state
-                    this.props.updateUser({
-                        loggedIn: true,
-                        username: response.data.username
-                    })
+                    // this.props.updateUser({
+                    //     loggedIn: true,
+                    //     username: response.data.username
+                    // })
                     // update the state to redirect to home
                     this.setState({
-                        redirectTo: '/'
+                        redirectTo: '/review'
                     })
                 }
             }).catch(error => {
@@ -83,11 +87,25 @@ class LoginForm extends Component {
                                 <div className="col-12 form-fields">
                                     <button className="btn btn-outline-dark" onClick={this.handleSubmit} type="submit">Login</button>
                                 </div>
-                            </Row>                    
+                            </Row>
+                            <Row>
+                                <div className="col-12 center-component">
+                                    Don't have an account? 
+                                </div>
+                            </Row>
+                            <Row>
+                                <div className="col-12 center-component">
+                                    <Link to="/register">
+                                        <RegisterButton/>
+                                    </Link>
+                                </div>    
+                            </Row>                        
                         </div>            
                     </div>                 					
-                </form>            
+                </form> 
+                <Footer />           
             </Container>
+            
         )
     }
 }
