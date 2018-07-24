@@ -35,5 +35,10 @@ export default {
     console.log("getting the login in api")
     console.log(user);
     return axios.post(`${APIHost}/user/login`, user);
+  },
+
+  logout: function(user) {
+    console.log("logging out hit in FE API");
+    return axios.post(`${APIHost}/user/logout`, user);
   }
 };

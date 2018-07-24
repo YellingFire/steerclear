@@ -29,11 +29,6 @@ class Register extends Component {
 		console.log(this.state.username)
 		event.preventDefault()
 
-		
-		// console.log(
-		// `${determineApiHost(determineEnv())}/api/user`
-		// );
-		//request to server to add a new username/password
 		axios.post(`${determineApiHost(determineEnv())}/api/user`, {
 			username: this.state.username,
 			password: this.state.password,

@@ -8,6 +8,7 @@ import LoginPage from "../../pages/LoginPage";
 import RegisterPage from "../../pages/RegisterPage";
 // import API from "../../utils/API";
 import Spec from '../Auth/Spec';
+import ProtectedRoute from './ProtectedRoute';
 
 class Router extends Component {
     
@@ -17,7 +18,7 @@ class Router extends Component {
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/" component={ TitlePage } />
-                    <Route path="/review" component={ Spec } />
+                    <ProtectedRoute exact path="/review" redirectUrl="/login" component={ Spec } />
                     <Route exact path="/Homeowner" component={ HomeownerCheckPage } />
                     <Route exact path="/Contractor" component={ ContractorCheckPage } />
                     <Route exact path="/Contractor/Review" component={ CreateReviewPage } />

@@ -32,21 +32,9 @@ router.post('/', (req, res) => {
     })
 })
 
-// router.post('/login',
-
-// passport.authenticate('local', { successRedirect: '/review',
-//                                  failureRedirect: '/login',
-//                                  failureFlash: true })
-                                
-// );
-
 router.post('/login', (req, res) => {
     console.log('REQ.BODY: ', req.body);
-    // function (req, res, next) {
-    //     console.log('this is the req.user in routes/user.js: ', res.bo);
-    //     console.log('routes/user.js, login, req.body: ', req.body);        
-    //     next()
-    // },
+
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             console.log(err);
@@ -56,10 +44,8 @@ router.post('/login', (req, res) => {
             console.log(info);
             return res.status(403).json({ notLoggedIn: info })
         }
-        console.log('logged in', user);
-        // var userInfo = {
-        //     username: req.user.username
-        // };
+        console.log('logged in...user.js route, user is: ', user);
+        
         req.session.save();
         res.json(user);
     })(req, res);
@@ -68,7 +54,7 @@ router.post('/login', (req, res) => {
 
 router.get('/', (req, res, next) => {
     console.log('===== user!!======')
-    console.log(req.user)
+    console.log('This is the req.user in BE user.js route: ', req)
     if (req.user) {
         res.json({ user: req.user })
     } else {
@@ -76,13 +62,15 @@ router.get('/', (req, res, next) => {
     }
 })
 
-router.post('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
     if (req.user) {
-        req.logout()
+        req.logout();
+        req.user= null;
         res.send({ msg: 'logging out' })
     } else {
         res.send({ msg: 'no user to log out' })
     }
+    console.log('Logged out, BE user.js');
 })
 
 module.exports = router

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 import Row from "../Grid/Row";
 import Container from "../Grid/Container";
 import { Link } from "react-router-dom";
@@ -12,8 +13,7 @@ class LoginForm extends Component {
         super()
         this.state = {
             username: '',
-            password: '',
-            redirectTo: null
+            password: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -36,18 +36,15 @@ class LoginForm extends Component {
                 password: this.state.password
             })
             .then(response => {
-                console.log('login response: ')
-                console.log(response)
+                // console.log('login response: ')
+                console.log("This is the login response: ", response);
                 if (response.status === 200) {
-                    // update App.js state
-                    // this.props.updateUser({
-                    //     loggedIn: true,
-                    //     username: response.data.username
-                    // })
-                    // update the state to redirect to home
-                    this.setState({
-                        redirectTo: '/review'
-                    })
+                  sessionStorage.setItem('userId', response.data._id);
+                  sessionStorage.setItem('typeUser', response.data.typeUser);
+                  sessionStorage.setItem('username', response.data.username);
+                  console.log("Here is the sessionStorage", sessionStorage.getItem('username'));
+                  this.props.history.push('/review');
+                // response.redirect('/review');
                 }
             }).catch(error => {
                 console.log('login error: ')
@@ -110,4 +107,4 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);

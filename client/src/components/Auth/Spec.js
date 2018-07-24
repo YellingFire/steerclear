@@ -1,30 +1,29 @@
 import React, { Component } from 'react';
 import ContractorCheckPage from '../../pages/ContractorCheckPage';
 import HomeownerCheckPage from '../../pages/HomeownerCheckPage';
-import API from '../../utils/API';
+// import API from '../../utils/API';
 
 
 class Spec extends Component {
-    state = {
-        user: {}
-    }
+    constructor() {
+        super()
 
-    componentDidMount() {
-        API.getUser()
-            .then(res => console.log(res))
-            .catch(error => console.log(error)); 
-    }
+        this.state = {
+            typeUser: sessionStorage.getItem('typeUser')
+        }
+
+    }     
 
     render() {
-        switch (this.state.user.typeUser) {
+            
+        switch (this.state.typeUser) {
+    
             case 'Homeowner': 
-                return <HomeownerCheckPage role="HOMEOWNER" />
-                break;
+                return <HomeownerCheckPage />
             case 'Service Provider': 
-                return <ContractorCheckPage role="SERVICE_PROVIDER" />
-                break;
+                return <ContractorCheckPage />
             default: return new Error("THE ROLE YOU PASSED HAS NOT BEEN CONFIGURED YET OR YOU DON'T HAVE THE PROPER PERMISSIONS");
-        }
+        }       
 
     }
 
