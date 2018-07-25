@@ -28,8 +28,8 @@ class LoginForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault()
-        console.log('handleSubmit')
-        console.log(this.state);
+        // console.log('handleSubmit')
+        // console.log(this.state);
 
             API.login({
                 username: this.state.username,
