@@ -66,6 +66,7 @@ router.get('/logout', (req, res) => {
     if (req.user) {
         req.logout();
         req.user= null;
+        req.session = null;
         res.send({ msg: 'logging out' })
     } else {
         res.send({ msg: 'no user to log out' })

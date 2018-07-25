@@ -16,6 +16,11 @@ export default {
     return axios.post(`${APIHost}/reviews/search`, address);
   },
 
+  getByUser: function(review) {
+    console.log("getByUser, in client side API hit!");
+    return axios.post(`${APIHost}/reviews/search`, review)
+  },
+
   // Deletes the reviews with the given addressId
   deleteReview: function(endpoint) {
     return axios.delete(`${APIHost}/${endpoint}`);
@@ -23,7 +28,7 @@ export default {
 
   // Saves a reviews to the database
   saveReview: function(review) {
-    console.log("Save Review, in client side API hit!");
+    console.log("Save Review, in client side API hit!:", review);
     return axios.post(`${APIHost}/reviews`, review);
   },
 

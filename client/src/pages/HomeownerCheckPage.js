@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import { Link } from "react-router-dom";
 import CheckForReview from '../components/forms/CheckForReview';
 import Jumbotron from "../components/Jumbotron/Jumbotron";
 import Modal from 'react-modal';
@@ -9,6 +10,8 @@ import ListItem from "../components/List/ListItem";
 import API from "../utils/API";
 import Col from "../components/Grid/Col";
 import Row from "../components/Grid/Row";
+import StarRatingComponent from 'react-star-rating-component';
+// import LogoutButton from "../components/buttons/LogoutButton";
 
 const customStyles = {
   content : {
@@ -80,13 +83,24 @@ class HomeownerCheckPage extends Component {
         });
     }
 
+    // logout = () => {
+    //   API.logout()
+    //   .then(user => {
+    //     console.log("logging out in homeownercheck.js: ", user);
+    //     sessionStorage.clear();
+    //     window.location.reload();
+
+    //   })      
+    // }
+
+
   render() {
     const {loading} = this.state;
     return (
       <div className="container">
         <Row>
-            <Jumbotron />
-        </Row>
+          <Jumbotron />
+        </Row>  
         <div className="center-component">
           <h1>A homeowner review site</h1>
         </div>
@@ -100,7 +114,9 @@ class HomeownerCheckPage extends Component {
                 <div className="col-10 center-component">
                     <CheckForReview onSubmit={this.searchReviews}/>
                 </div>
-                <div className="col-1"></div>              
+                <div className="col-1">
+                  {/* <button type="button" className="btn btn-outline-dark" onClick={this.logout}>Logout</button> */}
+                </div>              
               </Row>
           </div>
           <div className="col-1"></div>        
@@ -120,7 +136,20 @@ class HomeownerCheckPage extends Component {
                       <ListItem key={review._id}>
                         <Row><em>{review.street}</em></Row>
                         <Row><em>{review.city} {review.state}</em></Row>  
-                        <Row><em>{review.review}</em></Row>                    
+                        <Row><em>{review.review}</em></Row> 
+                        <Row><StarRatingComponent 
+                                          name="rating" 
+                                          starCount={5}
+                                          value={review.rating}
+                                          editing={false}
+                                          renderStarIcon={(index, value) => {
+                                              return (
+                                              <span>
+                                                  <i className={index <= value ? 'fas fa-angry' : 'far fa-angry'} />
+                                              </span>
+                                              );
+                                          }}
+                            /></Row>                         
                       </ListItem>
                     ))}
                     <button onClick={this.closeModal}>Close</button>

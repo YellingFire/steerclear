@@ -10,6 +10,8 @@ import Row from "../components/Grid/Row";
 import List from "../components/List/List.js";
 import ListItem from "../components/List/ListItem";
 import Container from "../components/Grid/Container";
+import WriteReview from "../components/forms/WriteReview";
+import StarRatingComponent from 'react-star-rating-component';
 
 const customStyles = {
   content : {
@@ -28,7 +30,10 @@ class ContractorCheckPage extends Component {
     super();
 
     this.state = {
+      // revAuthor: sessionStorage.getItem('userId'),
+      currentUser: sessionStorage.getItem('username'),
       reviews: [],
+      userReviews: [],
       loading: false,
       modalIsOpen: false
       
@@ -56,6 +61,18 @@ class ContractorCheckPage extends Component {
     componentWillUnmount() {
       clearTimeout(this.waitToDismissLoader); // Garbage collection
     }
+
+    // componentDidMount() {
+    //   this.loadUserReviews();
+    // }
+
+    // loadUserReviews = () => {
+    //   API.getByUser()
+    //     .then(res => {
+    //       this.setState({userReviews: res.data})
+    //       console.log('Here are the loaded reviews for this user')
+    //     })
+    // }
 
     searchReviews = (form, event) => {
       event.preventDefault();
@@ -88,42 +105,46 @@ class ContractorCheckPage extends Component {
             <Jumbotron />
         </Row>
         <div className="center-component">
-          <h1>A homeowner review site <em>--Contractor</em></h1>
+          <h1>A homeowner review site </h1>
         </div>
+        <Row>
+          <div>
+            
+          </div>  
+        </Row>
         <Row>
           <div className="col-1"></div>
           <div className="col-10 body-content">
-            <h5>Steer Clear is a review site that is used by contractors and service industry providers. It is a way for contractors to warn other contractors and service industry providers about bad experiences with homeowners or clients on a particular project.</h5>
+            <h5>Hello {this.state.currentUser}, Steer Clear is a review site that is used by contractors and service industry providers. It is a way for contractors to warn other contractors and service industry providers about bad experiences with homeowners or clients on a particular project. Below are reviews you've written, a place to check for a review and at the bottom you can write another review.</h5>
+              {/* <Row>
+                <div>
+                  {this.state.userReviews.length > 0 &&
+                    <List>
+                      {this.state.reviews.map(review => (
+                        <ListItem key={review._id}>
+                          <Row><em>{review.street}</em></Row>
+                          <Row><em>{review.city} {review.state}</em></Row>  
+                          <Row><em>{review.review}</em></Row>                    
+                        </ListItem>
+                      ))}
+                  </List>                  
+                  }
+                  {!this.state.userReviews.length &&
+                        <h3>You have not posted any reviews.</h3>
+                  }
+                
+                </div>
+              </Row> */}
               <Row>
                 {/* <div className="col-1"></div> */}
                 <div className="col- center-component">
                     <CheckForReview onSubmit={this.searchReviews}/>
+                </div>
+                <div className="col- center-component">
+                    <WriteReview />
                 </div>                
                 {/* <div className="col-1"></div>               */}
               </Row>
-              {/* <Row>
-                <Col size="md">
-                      <h1 className="center-component">Reviews for this Address:</h1>
-                    {this.state.reviews.length > 0 && !loading && 
-                      <List>
-
-                        {this.state.reviews.map(review => (
-                          <ListItem key={review._id}>
-                            <Row><em>{review.street}</em></Row>
-                            <Row><em>{review.city} {review.state}</em></Row>  
-                            <Row><em>{review.review}</em></Row>                    
-                          </ListItem>
-                        ))}
-                      </List>
-                    }
-                    {!this.state.reviews.length && !loading &&
-                      <h3>No Results to Display</h3>
-                    }
-                    {loading &&
-                      <i className="fas fa-spinner fa-spin"></i>
-                    }
-                </Col>
-              </Row> */}
               <Row>
                 <Modal
                   isOpen={this.state.modalIsOpen}
@@ -139,8 +160,22 @@ class ContractorCheckPage extends Component {
                             <ListItem key={review._id}>
                               <Row><em>{review.street}</em></Row>
                               <Row><em>{review.city} {review.state}</em></Row>  
-                              <Row><em>{review.review}</em></Row>                    
+                              <Row><em>{review.review}</em></Row> 
+                              <Row><StarRatingComponent 
+                                          name="rating" 
+                                          starCount={5}
+                                          value={review.rating}
+                                          editing={false}
+                                          renderStarIcon={(index, value) => {
+                                              return (
+                                              <span>
+                                                  <i className={index <= value ? 'fas fa-angry' : 'far fa-angry'} />
+                                              </span>
+                                              );
+                                          }}
+                            /></Row>                   
                             </ListItem>
+                            
                           ))}
                           <button onClick={this.closeModal}>Close</button>
                         </List>
@@ -159,7 +194,7 @@ class ContractorCheckPage extends Component {
               </Row>
               
           </div>
-         
+
         </Row>
         <Footer />       
       </Container>

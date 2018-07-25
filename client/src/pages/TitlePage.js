@@ -40,7 +40,7 @@ class TitlePage extends Component {
                     </div>
                     <div className="col-4 center-component">
                       <h3>Homeowners Start Here</h3>
-                      <Link to="/Homeowner">
+                      <Link to="/login">
                         <HomeownerButton />
                       </Link>  
                     </div>

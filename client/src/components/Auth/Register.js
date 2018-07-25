@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import './Auth.css';
 import determineEnv from '../../environment/determineEnv';
@@ -19,6 +20,17 @@ class Register extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 	}
+
+	handleClearForm(event) {
+        event.preventDefault();
+        this.setState({
+            username: '',
+			password: '',
+			typeUser: ''
+        });
+      };
+
+
 	handleChange(event) {
 		this.setState({
 			[event.target.name]: event.target.value
@@ -29,6 +41,11 @@ class Register extends Component {
 		console.log(this.state.username)
 		event.preventDefault()
 
+		if (!this.state.typeUser) {
+			return alert("You must choose either Service Provider or Homeowner")
+		}
+
+
 		axios.post(`${determineApiHost(determineEnv())}/api/user`, {
 			username: this.state.username,
 			password: this.state.password,
@@ -36,14 +53,21 @@ class Register extends Component {
 		})
 			.then(response => {
 				console.log(response)
+				
+				if (response.status === 200) {
+					sessionStorage.setItem('userId', response.data._id);
+					sessionStorage.setItem('typeUser', response.data.typeUser);
+					sessionStorage.setItem('username', response.data.username);
+					console.log("Here is the sessionStorage", sessionStorage.getItem('username'));
+					this.props.history.push('/review');
+				  }
 				if (!response.data.errmsg) {
 					console.log('successful signup')
-					this.setState({ //redirect to login page
-						redirectTo: '/review'
-					})
+					
 				} else {
 					console.log('username already taken')
 				}
+
 			}).catch(error => {
 				console.log('signup error: ')
 				console.log(error)
@@ -52,7 +76,7 @@ class Register extends Component {
 	}
 
 
-    render() {
+    render() {		
         return (
             <div className="container">
                 <h4 className="form-title">Register</h4>
@@ -130,4 +154,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default withRouter(Register);

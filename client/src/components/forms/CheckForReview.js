@@ -1,6 +1,7 @@
 import React from "react";
 import "./forms.css";
 // import API from "../../utils/API";
+import LogoutButton from '../buttons/LogoutButton';
 
 class CheckForReview extends React.Component {
 
@@ -28,6 +29,7 @@ class CheckForReview extends React.Component {
           zip: ''
         });
       };
+
 
     onSubmit = (event) => {
         this.props.onSubmit(this.state, event);
@@ -71,7 +73,8 @@ class CheckForReview extends React.Component {
                                             onClick={this.handleSubmit}>Check Address
                             </button>         */}
                             <button className="btn btn-sm btn-outline-dark" type="submit">Check Address</button>
-                        </form>                    
+                        </form> 
+                        <LogoutButton />                   
                     </div>                
                 </div>
                              

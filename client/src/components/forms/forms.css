@@ -62,3 +62,8 @@ textarea {
   .review {
     width: 100%
   }
+
+  .rating-stars {
+      margin-left: 20px;
+      font-size: 2em;
+  }
